@@ -5,6 +5,7 @@ from gvsig import *
 from gvsig.commonsdialog import *
 
 import sys
+import os
 
 from java.io import File
 from org.gvsig.tools import ToolsLocator
@@ -15,7 +16,9 @@ from es.unex.sextante.gui.core import NameAndIcon
 
 from process import Process
 
-class MyToolBoxProcess(ToolboxProcess):
+from org.gvsig.andami import PluginsLocator
+
+class DistribucionDePoblacionPorCentro(ToolboxProcess):
 
   def defineCharacteristics(self):
     i18n = ToolsLocator.getI18nManager()
@@ -44,7 +47,7 @@ class MyToolBoxProcess(ToolboxProcess):
     params.addNumericalValue("EDAD_MAX", i18n.getTranslation("_Edad_maxima_para_tener_en_cuenta_a_una_persona"),0, NUMERICAL_VALUE_INTEGER)
 
     # Y por ultimo indicamos que precisaremos una capa de salida de puntos.
-    self.addOutputVectorLayer("RESULT_MULTIPOINT", i18n.getTranslation("_Resultado"), SHAPE_TYPE_MULTIPOINT)
+    self.addOutputVectorLayer("RESULT", i18n.getTranslation("_Resultado"), SHAPE_TYPE_POINT)
 
   def processAlgorithm(self):
         features=None
@@ -67,10 +70,10 @@ class MyToolBoxProcess(ToolboxProcess):
             self
           )
           output_store = self.buildOutPutStore(
-                process.getMultipointFeatureType(),
-                SHAPE_TYPE_MULTIPOINT,
+                process.getPointsFeatureType(),
+                SHAPE_TYPE_POINT,
                 i18n.getTranslation("_Distribucion_poblacion"),
-                "RESULT_MULTIPOINT"
+                "RESULT"
           )
           process.estimarProceso()
 
@@ -91,12 +94,32 @@ class MyToolBoxProcess(ToolboxProcess):
           print "Proceso terminado %s" % self.getCommandLineName()
           return True
 
-
+  def getHelpFile(self):
+      name = "distribucionPoblacionPorCentros"
+      extension = ".xml"
+      locale = PluginsLocator.getLocaleManager().getCurrentLocale()
+      tag = locale.getLanguage()
+  
+      helpPath = getResource(__file__, "help", name + "_" + tag + extension)
+      if os.path.exists(helpPath):
+          return File(helpPath)
+      #Alternatives
+      alternatives = PluginsLocator.getLocaleManager().getLocaleAlternatives(locale)
+      for alt in alternatives:
+          helpPath = getResource(__file__, "help", name + "_" + alt.toLanguageTag() + extension )
+          if os.path.exists(helpPath):
+              return File(helpPath)
+      # More Alternatives
+      helpPath = getResource(__file__, "help", name + extension)
+      if os.path.exists(helpPath):
+          return File(helpPath)
+      return None
+      
 def selfRegister():
   i18n = ToolsLocator.getI18nManager()
   i18n.addResourceFamily("text",File(getResource(__file__,"i18n")))
   
-  process = MyToolBoxProcess()
+  process = DistribucionDePoblacionPorCentro()
   process.selfregister("Scripting")
   process.updateToolbox()
   #msgbox(i18n.getTranslation("_Se_ha_incorporado_el_script_Scripting_Group_Name_a_la_paleta_de_geoprocesos") % (

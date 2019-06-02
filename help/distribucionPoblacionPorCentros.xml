@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='yes' ?>
+<!--
+
+    gvSIG. Desktop Geographic Information System.
+
+    Copyright (C) 2007-2012 gvSIG Association.
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+    MA  02110-1301, USA.
+
+    For any additional information, do not hesitate to contact us
+    at info AT gvsig.com, or visit our website www.gvsig.com.
+
+-->
+        <help>
+          <element name="DESCRIPTION" text="Calcula una distribuci&#243;n de poblaci&#243;n que se encuentra en un rango de edad entre los centros indicados. El proceso intentar&#225; asignar a cada persona el centro mas cercano a ella. Luego, si un centro excede la cantidad m&#225;xima de personas indicada, intentar&#225; reubicarlas entre los centros mas cercanos a estas que aun no la hayan superado." description="Descripci&#243;n" type="0">
+                </element>
+                <element name="ADDITIONAL_INFO" text="" description="Informaci&#243;n adicional" type="0">
+                </element>
+                <element name="EXTENSION_AUTHOR" text="Equipo gvSIG" description="Algoritmo creado por" type="0">
+                </element>
+                <element name="HELP_AUTHOR" text="Equipo gvSIG" description="Ayuda creada por" type="0">
+                </element>
+                <element name="USER_NOTES" text="" description="Notas de usuario" type="0">
+                </element>
+                <element name="POBLACION" description="Capa poblaci&#243;n" text="Capa de puntos con la informaci&#243;n de poblaci&#243;n. Deber&#225; tener al menos informaci&#243;n de posici&#243;n, donde esta ubicada, y edad, ademas de contener un campo que identifique a cada linea de la tabla." type="3">
+                </element>
+                <element name="POB_ID" description="Identificador en la tabla de poblaci&#243;n" text="Identificador o clave &#250;nica dentro de la tabla de poblaci&#243;n. Deber&#225; poder almacenarse en un campo de tipo entero." type="3">
+                </element>
+                <element name="POB_EDAD" description="Campo edad en la tabla de poblaci&#243;n" text="Campo que contiene la edad en la tabla de poblaci&#243;n." type="3">
+                </element>
+
+                <element name="CENTROS" description="Capa de centros" text="Capa de puntos con la informaci&#243;n de los centros sobre los cuales hay que realizar la distribuci&#243;n de poblaci&#243;n. Deber&#225; de contener un identificador o clave &#250;nica  y un campo con el nombre del centro." type="3">
+                </element>
+                <element name="CENTRO_ID" description="Identificador en la tabla de centros" text="Identificador o clave &#250;nica dentro de la tabla de centros. Deber&#225; poder almacenarse en un campo de tipo entero." type="3">
+                </element>
+                <element name="CENTRO_NOMBRE" description="Campo nombre en la tabla de centros" text="Campo que contiene el nombre del centro. Este se utilizara unicamente para mostrar alg&#250;n mensaje al usuario." type="3">
+                </element>
+                
+                <element name="MAX_PERSONAS" description="Poblaci&#243;n por centro" text="Numero m&#225;ximo de personas que se van a asignar a un centro. Si se indica un 0, se tomara el numero m&#225;ximo de personas como la media de personas por centro. Si el numero m&#225;ximo de personas indicado es menor que la media, el resultado del proceso no sera correcto." type="3">
+                </element>
+                <element name="MAX_DISTANCIA_VECINOS" description="M&#225;xima distancia para alcanzar un centro vecino" text="M&#225;xima distancia en la que buscar centros vecinos a los que ceder poblaci&#243;n cuando la de un centro excede el m&#225;ximo indicado." type="3">
+                </element>
+                <element name="EDAD_MIN" description="Edad m&#237;nima para tener en cuenta a una persona" text="Edad m&#237;nima a tener para que una persona sea incluida en la distribuci&#243;n de poblaci&#243;n a generar. La edad deber&#225; ser mayor o igual que la indicada. Si es menor o igual que cero se asumir&#225; cero." type="3">
+                </element>
+                <element name="EDAD_MAX" description="Edad m&#225;xima para tener en cuenta a una persona" text="Edad m&#225;xima a tener para que una persona sea incluida en la distribuci&#243;n de poblaci&#243;n a generar. La edad deber&#225; ser menor o igual que la indicada. Si es menor o igual que cero se asumir&#225; que entran todas las personas que superen la edad m&#237;nima." type="3">
+                </element>
+
+                
+                <element name="OUTPUT_DESCRIPTION" text="" description="Descripci&#243;n general" type="2">
+                </element>
+                <element name="RESULT" description="Capa de salida" text="Capa de puntos con la distribuci&#243;n de poblaci&#243;n calculada. La capa resultado contendr&#225; tres campos, CENTRO_ID, con el identificador del centro al que a sido asignada, POB_ID, con el identificador de la persona en la tabla de poblaci&#243;n, y el punto que situa a la persona obtenido de la tabla de poblaci&#243;n." type="2">
+                </element>
+        </help>
+<?xml version='1.0' encoding='ISO-8859-1' standalone='yes' ?>
+ 

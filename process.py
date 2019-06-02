@@ -4,7 +4,7 @@ import gvsig
 from gvsig import currentView
 
 from gvsig.geom import D2
-from gvsig.geom import POLYGON, MULTIPOINT
+from gvsig.geom import POLYGON, MULTIPOINT, POINT
 from gvsig.geom import createMultiPoint
 
 from org.gvsig.tools import ToolsLocator
@@ -195,14 +195,13 @@ class Process(object):
     self.calcularDistribucionPorDistancia()
     self.redistribuirEntreLosCentrosVecinos()
 
-  def getMultipointFeatureType(self):
+  def getPointsFeatureType(self):
     schema = createFeatureType()
     
-    schema.append("ID", "INTEGER", 10)
-    schema.append("COUNT", "INTEGER", 10)
-    schema.append("NAME", "STRING", 50)
+    schema.append("POB_ID", "INTEGER", 10)
+    schema.append("CENTRO_ID", "INTEGER", 10)
     schema.append("GEOMETRY", "GEOMETRY")
-    schema.get("GEOMETRY").setGeometryType(MULTIPOINT, D2)
+    schema.get("GEOMETRY").setGeometryType(POINT, D2)
     return schema
 
     
@@ -220,13 +219,12 @@ class Process(object):
     i18n = ToolsLocator.getI18nManager()
     self.progress.setProgressText(i18n.getTranslation("_Generando_resultados"))
     for unCentro in self.centros:
-      unCentro.area = None
-      f = store.createNewFeature()
-      f.set("ID",unCentro.id)
-      f.set("NAME",unCentro.nombre)
-      f.set("COUNT",unCentro.getTotalCount())
-      f.set("GEOMETRY",unCentro.getMultiPoint())
-      store.insert(f)
+      for persona in unCentro.poblacion:
+        f = store.createNewFeature()
+        f.set("CENTRO_ID",unCentro.id)
+        f.set("POB_ID",persona[0])
+        f.set("GEOMETRY",persona[1])
+        store.insert(f)
     store.commit()  
 
 
@@ -243,6 +241,23 @@ class Progress(object):
   def next(self):
     self.current += 1
       
+def crearCapaDePoligonos(process, layerName):
+  capa = createShape(process.getPolygonFeatureType())
+  capa.setName(layerName)
+  store = capa.getFeatureStore()
+  store.edit()
+  for unCentro in process.centros:
+    unCentro.area = None
+    f = store.createNewFeature()
+    f.set("ID",unCentro.id)
+    f.set("NAME",unCentro.nombre)
+    f.set("COUNT",unCentro.getTotalCount())
+    f.set("GEOMETRY",unCentro.getPolygon())
+    store.insert(f)
+  capa.commit()  
+  currentView().addLayer(capa)
+
+
 def main(*args):
   vista = currentView()
   centros = vista.getLayer("colegios_electorales-puntos_def")
@@ -266,24 +281,16 @@ def main(*args):
   process.calcularDistribucionPorDistancia()
 
   # Crear capa de poligonos con la distribucion por distancia
-  capa = createShape(process.getPolygonFeatureType())
-  store = capa.getFeatureStore()
-  store.edit()
-  for unCentro in process.centros:
-    unCentro.area = None
-    f = store.createNewFeature()
-    f.set("ID",unCentro.id)
-    f.set("NAME",unCentro.nombre)
-    f.set("COUNT",unCentro.getTotalCount())
-    f.set("GEOMETRY",unCentro.getPolygon())
-    store.insert(f)
-  capa.commit()  
-  currentView().addLayer(capa)
+  crearCapaDePoligonos(process, "centros_por_distancia")
 
   process.redistribuirEntreLosCentrosVecinos()
 
-  # Crear capa de multipuntos con poblacion por centro
-  capa = createShape(process.getMultipointFeatureType())
+  # Crear capa de poligonos con la redistribucion realizada
+  crearCapaDePoligonos(process, "centros_redistribuidos")
+
+  # Crear capa de puntos con poblacion por centro
+  capa = createShape(process.getPointsFeatureType())
+  capa.setName("Poblacion por centro")
   store = capa.getFeatureStore()
   store.edit()
   process.populateOutput(store)
