@@ -1,0 +1,14 @@
+[script]
+enable = true
+
+[Unit]
+type = Script
+name = process
+description = 
+createdBy = 
+version = 
+
+[Script]
+main = main
+Lang = python
+
