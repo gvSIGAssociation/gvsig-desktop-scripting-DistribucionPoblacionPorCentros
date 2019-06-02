@@ -99,12 +99,12 @@ def selfRegister():
   process = MyToolBoxProcess()
   process.selfregister("Scripting")
   process.updateToolbox()
-  msgbox(i18n.getTranslation("_Se_ha_incorporado_el_script_Scripting_Group_Name_a_la_paleta_de_geoprocesos") % (
-          "Scripting",
-          process.getGroup(),
-          process.getName()
-    )
-  )
+  #msgbox(i18n.getTranslation("_Se_ha_incorporado_el_script_Scripting_Group_Name_a_la_paleta_de_geoprocesos") % (
+  #        "Scripting",
+  #        process.getGroup(),
+  #        process.getName()
+  #  )
+  #)
 
 def main(*args):
   selfRegister()

@@ -1,11 +1,11 @@
 #
-#Sun Jun 02 14:47:37 CEST 2019
+#Sun Jun 02 15:03:00 CEST 2019
 owner=
 code=DistribucionPoblacionPorCentros
 java-version=j1_7
-official=false
+official=true
 type=Script
-version=1.0.0-0
+version=1.0.0-1
 state=testing
 operating-system=all
 dependencies=
@@ -16,7 +16,6 @@ model-version=1.0.1
 categories=
 description=Calcula la distribucion de poblacion en centros por edades.
 owner-url=
-buildNumber=0
-download-url=http\://github.com/gvSIGAssociation/gvsig-desktop-scripting-DistribucionPoblacionPorCentros/releases/download/1.0.0-0/gvSIG-desktop-2.4.0-DistribucionPoblacionPorCentros-1.0.0-0-testing-all-all-j1_7.gvspkg
+buildNumber=1
 gvSIG-version=2.4.0
 name=DistribucionPoblacionPorCentros
