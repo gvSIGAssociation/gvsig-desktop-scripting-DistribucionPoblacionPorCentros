@@ -1,11 +1,11 @@
 #
-#Sun Jun 02 15:03:00 CEST 2019
+#Sun Jun 02 17:46:39 CEST 2019
 owner=
 code=DistribucionPoblacionPorCentros
 java-version=j1_7
 official=true
 type=Script
-version=1.0.0-1
+version=1.0.0-2
 state=testing
 operating-system=all
 dependencies=
@@ -16,6 +16,6 @@ model-version=1.0.1
 categories=
 description=Calcula la distribucion de poblacion en centros por edades.
 owner-url=
-buildNumber=1
+buildNumber=2
 gvSIG-version=2.4.0
 name=DistribucionPoblacionPorCentros
