@@ -77,12 +77,12 @@ class DistribucionDePoblacionPorCentro(ToolboxProcess):
           )
           process.estimarProceso()
 
-          process.cargarColegios()
+          process.cargarCentros()
           
-          process.calcularPersonasPorColegio()
+          process.calcularPoblacionPorCentro()
           process.calcularDistribucionPorDistancia()
           
-          process.redistribuirEntreLosVecinos()
+          process.redistribuirEntreLosCentrosVecinos()
           
           process.populateOutput(output_store)
 

@@ -54,6 +54,14 @@ class Centro(object):
       
 class Process(object):
   def __init__(self, centros, poblacion, pob_id, pob_edad, centro_id, centro_nombre, max_poblacion, max_distancia, edad_min, edad_max, progress):
+    print "pob_id=", repr(pob_id)
+    print "pob_edad=", repr(pob_edad)
+    print "centro_id=", repr(centro_id)
+    print "centro_nombre=", repr(centro_nombre)
+    print "max_poblacion=", repr(max_poblacion)
+    print "max_distancia=", repr(max_distancia)
+    print "edad_min=", repr(edad_min)
+    print "edad_max=", repr(edad_max)
     self.max_distancia = max_distancia # Buffer para calcular los centros vecinos
     self.max_poblacion = max_poblacion # por centro
     self.total_poblacion = 0
